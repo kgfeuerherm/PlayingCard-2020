@@ -24,7 +24,10 @@ struct PlayingCardDeck
         {
             // As noted in Concentration 2020, Int now has a static random function.
             // This replaces 'at: cards.count.arc4random'.
-            return cards.remove(at: Int.random(in: 1 ... cards.count) )
+// BUG CORRECTION: The previous version had a range 1 ... cards.count in the call
+//                 which of course occasionally resulted in an out-of-bounds
+//                 violation.
+            return cards.remove(at: Int.random(in: 0 ..< cards.count) )
         }
         else
         {
